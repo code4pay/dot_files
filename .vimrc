@@ -35,6 +35,9 @@ let g:netrw_banner = 0
 "allow you to move buffers with out having to save them each time.
  set hidden
 
+"Highlighting for template toolkit
+autocmd BufRead,BufNewFile *.tt setf tt2html
+
     set nu
     syn on
     :set mouse=a
