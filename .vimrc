@@ -107,8 +107,8 @@ let g:netrw_banner = 0
     nnoremap <F5> :checktime<CR>
     
     "Remote Copy 
-    nnoremap "+y :w  !nc -q0 127.0.0.1 3333<CR><CR>
-    vnoremap "+y :w  !nc -q0 127.0.0.1 3333<CR><CR>
+    nnoremap "+y :w  !socat - TCP-CONNECT:localhost:3333<CR><CR>
+    vnoremap "+y :w  !socat - TCP-CONNECT:localhost:3333<CR><CR>
 
 " change local dir to the repos dir
 "
