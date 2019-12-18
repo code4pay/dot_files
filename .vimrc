@@ -18,6 +18,8 @@ Plugin 'garbas/vim-snipmate'
 Plugin 'honza/vim-snippets'
 call vundle#end()
 
+
+set encoding=utf-8
 "CtrlP wont change working dir easier for finding files across all projects. 
 let g:ctrlp_working_path_mode = 0
 
@@ -84,8 +86,8 @@ autocmd BufRead,BufNewFile *.tt setf tt2html
     "set statusline+=%#warningmsg#
     "set statusline+=%#LineNr#
     set statusline=%f%=%{FugitiveStatusline()}   
-    set fillchars+=vert:│
-    
+    set fillchars=vert:\�
+ 
     "kill buffers with out closing windows
      command Bd b#|bd#
      
