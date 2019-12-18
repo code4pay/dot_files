@@ -19,7 +19,6 @@ Plugin 'honza/vim-snippets'
 call vundle#end()
 
 
-set encoding=utf-8
 "CtrlP wont change working dir easier for finding files across all projects. 
 let g:ctrlp_working_path_mode = 0
 
@@ -78,7 +77,7 @@ autocmd BufRead,BufNewFile *.tt setf tt2html
     "ale perl checking
     let g:ale_perl_perlcritic_profile = "/home/git/regentmarkets/cpan/rc/.perlcriticrc"
     let g:ale_perl_perltidy_profile = "/home/git/regentmarkets/cpan/rc/.perltidyrc"
-    let g:ale_linters = { 'perl': ['perl','perlcritic','perltidy'] }
+    let g:ale_linters = { 'perl': ['perl','perlcritic','perltidy', 'podlint'] }
     let g:ale_fixers = { 'perl':['perltidy'] }
     
     "status line
@@ -86,7 +85,9 @@ autocmd BufRead,BufNewFile *.tt setf tt2html
     "set statusline+=%#warningmsg#
     "set statusline+=%#LineNr#
     set statusline=%f%=%{FugitiveStatusline()}   
-    set fillchars=vert:\�
+    set enc=utf-8
+    set fillchars=vert:\│
+
  
     "kill buffers with out closing windows
      command Bd b#|bd#
