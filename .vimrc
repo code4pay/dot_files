@@ -10,14 +10,15 @@ Plugin 'VundleVim/Vundle.vim'
 Plugin 'code4pay/ack.vim'
 Plugin 'tpope/vim-fugitive'
 Plugin 'w0rp/ale'
-Plugin 'ctrlpvim/ctrlp.vim'
+Plugin 'junegunn/fzf'
+Plugin 'junegunn/fzf.vim'
 Plugin 'ap/vim-buftabline'
 Plugin 'MarcWeber/vim-addon-mw-utils'
 Plugin 'tomtom/tlib_vim'
 Plugin 'garbas/vim-snipmate'
 Plugin 'honza/vim-snippets'
+Plugin 'majutsushi/tagbar'
 call vundle#end()
-
 
 "CtrlP wont change working dir easier for finding files across all projects. 
 let g:ctrlp_working_path_mode = 0
@@ -29,15 +30,15 @@ set softtabstop=4
 set expandtab
 
 set spell spelllang=en_us
-
+autocmd BufNewFile,BufRead *.t set syntax=perl
 " NetRW remove Banner
 let g:netrw_banner = 0
 
 "allow you to move buffers with out having to save them each time.
  set hidden
-
-"Highlighting for template toolkit
-autocmd BufRead,BufNewFile *.tt setf tt2html
+"fzf
+nnoremap ? :Ag <c-r><c-w><cr>
+nnoremap <C-t> :g/^method\s\<BAR>^sub\s/# <ENTER>
 
     set nu
     syn on
@@ -71,13 +72,14 @@ autocmd BufRead,BufNewFile *.tt setf tt2html
     let mapleader = ","
     nnoremap <leader>a :Ack! <SPACE>
     nnoremap <leader>p :!perldoc % <ENTER>
-
+    autocmd BufNewFile,BufRead *.meals set syntax=json
     set tag=/home/git/tags
-
+    nnoremap <F7> :TagbarToggle<CR>
+    nnoremap <leader>f :Files<CR>
     "ale perl checking
     let g:ale_perl_perlcritic_profile = "/home/git/regentmarkets/cpan/rc/.perlcriticrc"
     let g:ale_perl_perltidy_profile = "/home/git/regentmarkets/cpan/rc/.perltidyrc"
-    let g:ale_linters = { 'perl': ['perl','perlcritic','perltidy', 'podlint'] }
+    let g:ale_linters = { 'perl': ['perl','perlcritic','perltidy'] }
     let g:ale_fixers = { 'perl':['perltidy'] }
     
     "status line
@@ -85,10 +87,8 @@ autocmd BufRead,BufNewFile *.tt setf tt2html
     "set statusline+=%#warningmsg#
     "set statusline+=%#LineNr#
     set statusline=%f%=%{FugitiveStatusline()}   
-    set enc=utf-8
-    set fillchars=vert:\│
-
- 
+    set fillchars+=vert:│
+    
     "kill buffers with out closing windows
      command Bd b#|bd#
      
@@ -96,25 +96,25 @@ autocmd BufRead,BufNewFile *.tt setf tt2html
     inoremap <LEADER>c <C-x><C-p>
     "open file browser at different locations
     nnoremap <F2> :Ex<CR> 
-    nnoremap <F3> :Ex /home/git/regentmarkets<CR>
-    "buffer movment (used with Autohotkey and buftabs)
-    nnoremap <F7> :bp<CR> 
-    nnoremap <F8> :bn<CR>  
-    tnoremap <F7> <C-W>:bp<CR>
-    tnoremap <F8> <C-W>:bn<CR>
-     
+    nnoremap <F3> :Ex ~/<CR>
+    "buffer movment (used with buftabs)
+    nnoremap <Esc>[1;3D :bp<CR>
+    nnoremap <Esc>[1;3C :bn<CR>
+    tnoremap <Esc>[1;3D <C-W>:bp<CR>
+    tnoremap <Esc>[1;3C <C-W>:bn<CR>
+    
     "easier window movement
     nnoremap <C-l> <C-W>l
     tnoremap <C-l> <C-W>l
     nnoremap <C-k> <C-W>k
     nnoremap <C-h> <C-W>h
     nnoremap <C-j> <C-W>j
-    nnoremap <LEADER>b <C-W>j <C-W>j <C-W>h <C-W>h :b bash  <ENTER> 
+    
     nnoremap <F5> :checktime<CR>
     
     "Remote Copy 
-    nnoremap "+y :w  !socat - TCP-CONNECT:localhost:3333<CR><CR>
-    vnoremap "+y :w  !socat - TCP-CONNECT:localhost:3333<CR><CR>
+    nnoremap "+y :w  !nc -q0 127.0.0.1 3333<CR><CR>
+    vnoremap "+y :w  !nc -q0 127.0.0.1 3333<CR><CR>
 
 " change local dir to the repos dir
 "
